@@ -20,13 +20,13 @@ namespace IdentityServer4.Endpoints
     public class UserInfoEndpoint : IEndpoint
     {
         private readonly ILogger _logger;
-        private readonly IEventService _events;
+        private readonly EventService _events;
         private readonly IUserInfoResponseGenerator _generator;
         private readonly IdentityServerOptions _options;
         private readonly BearerTokenUsageValidator _tokenUsageValidator;
         private readonly ITokenValidator _tokenValidator;
 
-        public UserInfoEndpoint(IdentityServerOptions options, ITokenValidator tokenValidator, IUserInfoResponseGenerator generator, BearerTokenUsageValidator tokenUsageValidator, IEventService events, ILogger<UserInfoEndpoint> logger)
+        public UserInfoEndpoint(IdentityServerOptions options, ITokenValidator tokenValidator, IUserInfoResponseGenerator generator, BearerTokenUsageValidator tokenUsageValidator, EventService events, ILogger<UserInfoEndpoint> logger)
         {
             _options = options;
             _tokenValidator = tokenValidator;

@@ -22,7 +22,7 @@ namespace IdentityServer4.Endpoints
 {
     class AuthorizeEndpoint : IEndpoint
     {
-        private readonly IEventService _events;
+        private readonly EventService _events;
         private readonly ILogger _logger;
         private readonly IdentityServerContext _context;
         private readonly IAuthorizeRequestValidator _validator;
@@ -31,7 +31,7 @@ namespace IdentityServer4.Endpoints
         private readonly IMessageStore<ConsentResponse> _consentResponseStore;
 
         public AuthorizeEndpoint(
-            IEventService events, 
+            EventService events, 
             ILogger<AuthorizeEndpoint> logger,
             IdentityServerContext context,
             IAuthorizeRequestValidator validator,

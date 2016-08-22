@@ -26,14 +26,14 @@ namespace IdentityServer4.Endpoints
         private readonly ITokenRevocationRequestValidator _requestValidator;
         private readonly ITokenHandleStore _tokenHandles;
         private readonly IRefreshTokenStore _refreshTokens;
-        private readonly IEventService _events;
+        private readonly EventService _events;
 
         public RevocationEndpoint(ILogger<RevocationEndpoint> logger,
             ClientSecretValidator clientValidator,
             ITokenRevocationRequestValidator requestValidator,
             ITokenHandleStore tokenHandles, 
             IRefreshTokenStore refreshTokens, 
-            IEventService events)
+            EventService events)
         {
             _logger = logger;
             _clientValidator = clientValidator;

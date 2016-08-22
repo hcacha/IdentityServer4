@@ -3,16 +3,16 @@
 
 using IdentityModel;
 using IdentityServer4.Events;
+using IdentityServer4.Extensions;
 using IdentityServer4.Models;
-using IdentityServer4.Services;
 using System;
 using System.Security.Claims;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
-namespace IdentityServer4.Extensions
+namespace IdentityServer4.Events
 {
-    internal static class IEventServiceExtensions
+    internal static class EventServiceExtensions
     {
         //TODO
         //public static async Task RaisePreLoginSuccessEventAsync(this IEventService events, 
@@ -34,7 +34,7 @@ namespace IdentityServer4.Extensions
         //    await events.RaiseEventAsync(evt);
         //}
 
-        public static async Task RaisePreLoginFailureEventAsync(this IEventService events, 
+        public static async Task RaisePreLoginFailureEventAsync(this EventService events, 
             string signInMessageId, AuthorizationRequest authorizationRequest, string error)
         {
             var evt = new Event<LoginDetails>(
@@ -74,7 +74,7 @@ namespace IdentityServer4.Extensions
         //    await events.RaiseEventAsync(evt);
         //}
 
-        public static async Task RaiseLocalLoginFailureEventAsync(this IEventService events, 
+        public static async Task RaiseLocalLoginFailureEventAsync(this EventService events, 
             string username, string signInMessageId, AuthorizationRequest authorizationRequest, string error)
         {
             var evt = new Event<LocalLoginDetails>(
@@ -116,7 +116,7 @@ namespace IdentityServer4.Extensions
         //    await events.RaiseEventAsync(evt);
         //}
 
-        public static async Task RaiseExternalLoginFailureEventAsync(this IEventService events, 
+        public static async Task RaiseExternalLoginFailureEventAsync(this EventService events, 
             ExternalIdentity externalIdentity, string signInMessageId, AuthorizationRequest authorizationRequest, string error)
         {
             var evt = new Event<ExternalLoginDetails>(
@@ -136,7 +136,7 @@ namespace IdentityServer4.Extensions
             await events.RaiseEventAsync(evt);
         }
 
-        public static async Task RaiseExternalLoginErrorEventAsync(this IEventService events, string error)
+        public static async Task RaiseExternalLoginErrorEventAsync(this EventService events, string error)
         {
             var evt = new Event<object>(
                EventConstants.Categories.Authentication,
@@ -148,7 +148,7 @@ namespace IdentityServer4.Extensions
             await events.RaiseEventAsync(evt);
         }
 
-        public static async Task RaiseSuccessfulResourceOwnerFlowAuthenticationEventAsync(this IEventService events, 
+        public static async Task RaiseSuccessfulResourceOwnerFlowAuthenticationEventAsync(this EventService events, 
             string userName, string subjectId)
         {
             var evt = new Event<LocalLoginDetails>(
@@ -165,7 +165,7 @@ namespace IdentityServer4.Extensions
             await events.RaiseEventAsync(evt);
         }
 
-        public static async Task RaiseFailedResourceOwnerFlowAuthenticationEventAsync(this IEventService events, 
+        public static async Task RaiseFailedResourceOwnerFlowAuthenticationEventAsync(this EventService events, 
             string userName, string error)
         {
             var evt = new Event<LocalLoginDetails>(
@@ -182,7 +182,7 @@ namespace IdentityServer4.Extensions
             await events.RaiseEventAsync(evt);
         }
 
-        public static async Task RaisePartialLoginCompleteEventAsync(this IEventService events, 
+        public static async Task RaisePartialLoginCompleteEventAsync(this EventService events, 
             ClaimsIdentity subject, string signInMessageId, AuthorizationRequest authorizationRequest)
         {
             var evt = new Event<LoginDetails>(
@@ -201,7 +201,7 @@ namespace IdentityServer4.Extensions
             await events.RaiseEventAsync(evt);
         }
 
-        public static async Task RaiseLogoutEventAsync(this IEventService events, 
+        public static async Task RaiseLogoutEventAsync(this EventService events, 
             ClaimsPrincipal subject, string signOutId, LogoutRequest signOutMessage)
         {
             var evt = new Event<LogoutDetails>(
@@ -220,7 +220,7 @@ namespace IdentityServer4.Extensions
             await events.RaiseEventAsync(evt);
         }
 
-        public static async Task RaiseCspReportEventAsync(this IEventService events, string report, ClaimsPrincipal user)
+        public static async Task RaiseCspReportEventAsync(this EventService events, string report, ClaimsPrincipal user)
         {
             var evt = new Event<CspReportDetails>(
                 EventConstants.Categories.Information,
@@ -258,7 +258,7 @@ namespace IdentityServer4.Extensions
             await events.RaiseEventAsync(evt);
         }
 
-        public static async Task RaiseClientPermissionsRevokedEventAsync(this IEventService events, ClaimsPrincipal user, string clientId)
+        public static async Task RaiseClientPermissionsRevokedEventAsync(this EventService events, ClaimsPrincipal user, string clientId)
         {
             var evt = new Event<ClientPermissionsRevokedDetails>(
                 EventConstants.Categories.Information,
@@ -275,7 +275,7 @@ namespace IdentityServer4.Extensions
             await events.RaiseEventAsync(evt);
         }
 
-        public static async Task RaiseTokenIssuedEventAsync(this IEventService events, Token token, string rawToken)
+        public static async Task RaiseTokenIssuedEventAsync(this EventService events, Token token, string rawToken)
         {
             if (token.Type == OidcConstants.TokenTypes.AccessToken)
             {
@@ -287,7 +287,7 @@ namespace IdentityServer4.Extensions
             }
         }
 
-        public static async Task RaiseAccessTokenIssuedEventAsync(this IEventService events, Token token, string rawToken)
+        public static async Task RaiseAccessTokenIssuedEventAsync(this EventService events, Token token, string rawToken)
         {
             var evt = new Event<AccessTokenIssuedDetails>(
                 EventConstants.Categories.TokenService,
@@ -315,7 +315,7 @@ namespace IdentityServer4.Extensions
             await events.RaiseAsync(evt);
         }
 
-        public static async Task RaiseIdentityTokenIssuedEventAsync(this IEventService events, Token token)
+        public static async Task RaiseIdentityTokenIssuedEventAsync(this EventService events, Token token)
         {
             var evt = new Event<TokenIssuedDetailsBase>(
                 EventConstants.Categories.TokenService,
@@ -334,7 +334,7 @@ namespace IdentityServer4.Extensions
             await events.RaiseEventAsync(evt);
         }
 
-        public static async Task RaiseAuthorizationCodeIssuedEventAsync(this IEventService events, string id, AuthorizationCode code)
+        public static async Task RaiseAuthorizationCodeIssuedEventAsync(this EventService events, string id, AuthorizationCode code)
         {
             var evt = new Event<AuthorizationCodeDetails>(
                 EventConstants.Categories.TokenService,
@@ -355,7 +355,7 @@ namespace IdentityServer4.Extensions
             await events.RaiseEventAsync(evt);
         }
 
-        public static async Task RaiseRefreshTokenIssuedEventAsync(this IEventService events, string id, RefreshToken token)
+        public static async Task RaiseRefreshTokenIssuedEventAsync(this EventService events, string id, RefreshToken token)
         {
             var evt = new Event<RefreshTokenDetails>(
                 EventConstants.Categories.TokenService,
@@ -376,7 +376,7 @@ namespace IdentityServer4.Extensions
             await events.RaiseEventAsync(evt);
         }
 
-        public static async Task RaiseSuccessfulRefreshTokenRefreshEventAsync(this IEventService events, string oldHandle, string newHandle, RefreshToken token)
+        public static async Task RaiseSuccessfulRefreshTokenRefreshEventAsync(this EventService events, string oldHandle, string newHandle, RefreshToken token)
         {
             var evt = new Event<RefreshTokenRefreshDetails>(
                 EventConstants.Categories.TokenService,
@@ -395,7 +395,7 @@ namespace IdentityServer4.Extensions
             await events.RaiseEventAsync(evt);
         }
 
-        public static async Task RaiseUnhandledExceptionEventAsync(this IEventService events, Exception exception)
+        public static async Task RaiseUnhandledExceptionEventAsync(this EventService events, Exception exception)
         {
             var evt = new Event<object>(
                 EventConstants.Categories.InternalError,
@@ -407,7 +407,7 @@ namespace IdentityServer4.Extensions
             await events.RaiseEventAsync(evt);
         }
 
-        public static async Task RaiseSuccessfulClientAuthenticationEventAsync(this IEventService events, string clientId, string clientType)
+        public static async Task RaiseSuccessfulClientAuthenticationEventAsync(this EventService events, string clientId, string clientType)
         {
             var evt = new Event<ClientAuthenticationDetails>(
                 EventConstants.Categories.ClientAuthentication,
@@ -423,7 +423,7 @@ namespace IdentityServer4.Extensions
             await events.RaiseAsync(evt);
         }
 
-        public static async Task RaiseFailureClientAuthenticationEventAsync(this IEventService events, string message, string clientId, string clientType)
+        public static async Task RaiseFailureClientAuthenticationEventAsync(this EventService events, string message, string clientId, string clientType)
         {
             var evt = new Event<ClientAuthenticationDetails>(
                 EventConstants.Categories.ClientAuthentication,
@@ -440,7 +440,7 @@ namespace IdentityServer4.Extensions
             await events.RaiseAsync(evt);
         }
 
-        public static async Task RaiseSuccessfulEndpointEventAsync(this IEventService events, string endpointName)
+        public static async Task RaiseSuccessfulEndpointEventAsync(this EventService events, string endpointName)
         {
             var evt = new Event<EndpointDetail>(
                 EventConstants.Categories.Endpoints,
@@ -452,7 +452,7 @@ namespace IdentityServer4.Extensions
             await events.RaiseAsync(evt);
         }
 
-        public static async Task RaiseFailureEndpointEventAsync(this IEventService events, string endpointName, string error)
+        public static async Task RaiseFailureEndpointEventAsync(this EventService events, string endpointName, string error)
         {
             var evt = new Event<EndpointDetail>(
                  EventConstants.Categories.Endpoints,
@@ -465,7 +465,7 @@ namespace IdentityServer4.Extensions
             await events.RaiseAsync(evt);
         }
 
-        public static async Task RaiseSuccessfulIntrospectionEndpointEventAsync(this IEventService events, string token, string tokenStatus, string scopeName)
+        public static async Task RaiseSuccessfulIntrospectionEndpointEventAsync(this EventService events, string token, string tokenStatus, string scopeName)
         {
             var evt = new Event<IntrospectionEndpointDetail>(
                 EventConstants.Categories.Endpoints,
@@ -482,7 +482,7 @@ namespace IdentityServer4.Extensions
             await events.RaiseAsync(evt);
         }
 
-        public static async Task RaiseFailureIntrospectionEndpointEventAsync(this IEventService events, string error, string token, string scopeName)
+        public static async Task RaiseFailureIntrospectionEndpointEventAsync(this EventService events, string error, string token, string scopeName)
         {
             var evt = new Event<IntrospectionEndpointDetail>(
                  EventConstants.Categories.Endpoints,
@@ -499,7 +499,7 @@ namespace IdentityServer4.Extensions
             await events.RaiseAsync(evt);
         }
 
-        public static async Task RaiseFailedAuthorizationCodeRedeemedEventAsync(this IEventService events, Client client, string handle, string error)
+        public static async Task RaiseFailedAuthorizationCodeRedeemedEventAsync(this EventService events, Client client, string handle, string error)
         {
             var evt = new Event<AuthorizationCodeDetails>(
                 EventConstants.Categories.TokenService,
@@ -516,7 +516,7 @@ namespace IdentityServer4.Extensions
             await events.RaiseAsync(evt);
         }
 
-        public static async Task RaiseSuccessAuthorizationCodeRedeemedEventAsync(this IEventService events, Client client, string handle)
+        public static async Task RaiseSuccessAuthorizationCodeRedeemedEventAsync(this EventService events, Client client, string handle)
         {
             var evt = new Event<AuthorizationCodeDetails>(
                 EventConstants.Categories.TokenService,
@@ -532,7 +532,7 @@ namespace IdentityServer4.Extensions
             await events.RaiseAsync(evt);
         }
 
-        public static async Task RaiseFailedRefreshTokenRefreshEventAsync(this IEventService events, Client client, string handle, string error)
+        public static async Task RaiseFailedRefreshTokenRefreshEventAsync(this EventService events, Client client, string handle, string error)
         {
             var evt = new Event<RefreshTokenDetails>(
                 EventConstants.Categories.TokenService,
@@ -549,12 +549,12 @@ namespace IdentityServer4.Extensions
             await events.RaiseAsync(evt);
         }
 
-        public static Task RaiseSuccessRefreshTokenRefreshEventAsync(this IEventService events, Client client, string handle)
+        public static Task RaiseSuccessRefreshTokenRefreshEventAsync(this EventService events, Client client, string handle)
         {
             return Task.FromResult(0);
         }
 
-        public static async Task RaiseNoCertificateConfiguredEventAsync(this IEventService events)
+        public static async Task RaiseNoCertificateConfiguredEventAsync(this EventService events)
         {
             var evt = new Event<object>(
                 EventConstants.Categories.Information,
@@ -565,7 +565,7 @@ namespace IdentityServer4.Extensions
             await events.RaiseAsync(evt);
         }
 
-        public static async Task RaiseCertificatePrivateKeyNotAccessibleEventAsync(this IEventService events, X509Certificate2 cert)
+        public static async Task RaiseCertificatePrivateKeyNotAccessibleEventAsync(this EventService events, X509Certificate2 cert)
         {
             var evt = new Event<SigningCertificateDetail>(
                 EventConstants.Categories.InternalError,
@@ -582,7 +582,7 @@ namespace IdentityServer4.Extensions
             await events.RaiseAsync(evt);
         }
 
-        public static async Task RaiseCertificateKeyLengthTooShortEventAsync(this IEventService events, X509Certificate2 cert)
+        public static async Task RaiseCertificateKeyLengthTooShortEventAsync(this EventService events, X509Certificate2 cert)
         {
             var evt = new Event<SigningCertificateDetail>(
                 EventConstants.Categories.InternalError,
@@ -598,7 +598,7 @@ namespace IdentityServer4.Extensions
             await events.RaiseAsync(evt);
         }
 
-        public static async Task RaiseCertificateExpiringSoonEventAsync(this IEventService events, X509Certificate2 cert)
+        public static async Task RaiseCertificateExpiringSoonEventAsync(this EventService events, X509Certificate2 cert)
         {
             var evt = new Event<SigningCertificateDetail>(
                 EventConstants.Categories.Information,
@@ -614,7 +614,7 @@ namespace IdentityServer4.Extensions
             await events.RaiseAsync(evt);
         }
 
-        public static async Task RaiseCertificateValidatedEventAsync(this IEventService events, X509Certificate2 cert)
+        public static async Task RaiseCertificateValidatedEventAsync(this EventService events, X509Certificate2 cert)
         {
             var evt = new Event<SigningCertificateDetail>(
                 EventConstants.Categories.Information,
@@ -630,7 +630,7 @@ namespace IdentityServer4.Extensions
             await events.RaiseAsync(evt);
         }
 
-        private static async Task RaiseEventAsync<T>(this IEventService events, Event<T> evt)
+        private static async Task RaiseEventAsync<T>(this EventService events, Event<T> evt)
         {
             if (events == null) throw new ArgumentNullException("events");
 

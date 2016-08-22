@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 using IdentityModel;
+using IdentityServer4.Events;
 using IdentityServer4.Extensions;
 using IdentityServer4.Models;
 using IdentityServer4.Services;
@@ -20,9 +21,9 @@ namespace IdentityServer4.ResponseHandling
         private readonly ILogger<AuthorizeResponseGenerator> _logger;
         private readonly ITokenService _tokenService;
         private readonly IAuthorizationCodeStore _authorizationCodes;
-        private readonly IEventService _events;
+        private readonly EventService _events;
 
-        public AuthorizeResponseGenerator(ILogger<AuthorizeResponseGenerator> logger, ITokenService tokenService, IAuthorizationCodeStore authorizationCodes, IEventService events)
+        public AuthorizeResponseGenerator(ILogger<AuthorizeResponseGenerator> logger, ITokenService tokenService, IAuthorizationCodeStore authorizationCodes, EventService events)
         {
             _logger = logger;
             _tokenService = tokenService;

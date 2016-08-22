@@ -187,8 +187,8 @@ namespace Microsoft.Extensions.DependencyInjection
             services.TryAddTransient<ICorsPolicyService, DefaultCorsPolicyService>();
             services.TryAddTransient<IProfileService, DefaultProfileService>();
             services.TryAddTransient(typeof(IMessageStore<>), typeof(CookieMessageStore<>));
-            services.TryAddTransient<EventServiceHelper>();
-            
+            services.TryAddTransient<EventService>();
+
             return services;
         }
 

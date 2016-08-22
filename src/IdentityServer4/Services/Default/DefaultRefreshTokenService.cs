@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 using IdentityModel;
+using IdentityServer4.Events;
 using IdentityServer4.Extensions;
 using IdentityServer4.Models;
 using Microsoft.Extensions.Logging;
@@ -28,14 +29,14 @@ namespace IdentityServer4.Services.Default
         /// <summary>
         /// The _events
         /// </summary>
-        protected readonly IEventService _events;
+        protected readonly EventService _events;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DefaultRefreshTokenService" /> class.
         /// </summary>
         /// <param name="store">The refresh token store.</param>
         /// <param name="events">The events.</param>
-        public DefaultRefreshTokenService(IRefreshTokenStore store, IEventService events, ILoggerFactory loggerFactory)
+        public DefaultRefreshTokenService(IRefreshTokenStore store, EventService events, ILoggerFactory loggerFactory)
         {
             _logger = loggerFactory.CreateLogger<DefaultRefreshTokenService>();
             _store = store;

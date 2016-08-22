@@ -14,17 +14,14 @@ namespace IdentityServer4.Services.Default
     /// </summary>
     public class DefaultEventService : IEventService
     {
-        private readonly EventServiceHelper _helper;
-
         /// <summary>
         /// The logger
         /// </summary>
         private readonly ILogger _logger;
 
-        public DefaultEventService(ILogger<DefaultEventService> logger, EventServiceHelper helper)
+        public DefaultEventService(ILogger<DefaultEventService> logger)
         {
             _logger = logger;
-            _helper = helper;
         }
 
         /// <summary>
@@ -36,11 +33,8 @@ namespace IdentityServer4.Services.Default
         {
             if (evt == null) throw new ArgumentNullException("evt");
 
-            if (_helper.CanRaiseEvent(evt))
-            {
-                var json = LogSerializer.Serialize(_helper.PrepareEvent(evt));
-                _logger.LogInformation(json);
-            }
+            var json = LogSerializer.Serialize(evt);
+            _logger.LogInformation(json);
 
             return Task.FromResult(0);
         }

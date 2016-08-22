@@ -2,16 +2,37 @@
 using System;
 using System.Diagnostics;
 using IdentityModel;
+using IdentityServer4.Services;
+using System.Threading.Tasks;
 
 namespace IdentityServer4.Events
 {
-    public class EventServiceHelper
+    public class EventService
     {
         private readonly IdentityServerContext _context;
+        private readonly IEventService _events;
 
-        public EventServiceHelper(IdentityServerContext context)
+        protected EventService()
+        {
+        }
+
+        public EventService(IdentityServerContext context, IEventService eventService)
         {
             _context = context;
+            _events = eventService;
+        }
+
+        public virtual Task RaiseAsync<T>(Event<T> evt)
+        {
+            if (evt == null) throw new ArgumentNullException("evt");
+
+            if (CanRaiseEvent(evt))
+            {
+                evt = PrepareEvent(evt);
+                return _events.RaiseAsync<T>(evt);
+            }
+
+            return Task.FromResult(0);
         }
 
         public bool CanRaiseEvent<T>(Event<T> evt)

@@ -15,11 +15,11 @@ namespace IdentityServer4.Validation
     {
         private readonly ILogger _logger;
         private readonly IScopeStore _scopes;
-        private readonly IEventService _events;
+        private readonly EventService _events;
         private readonly SecretParser _parser;
         private readonly SecretValidator _validator;
 
-        public ScopeSecretValidator(IScopeStore scopes, SecretParser parsers, SecretValidator validator, IEventService events, ILogger<ScopeSecretValidator> logger)
+        public ScopeSecretValidator(IScopeStore scopes, SecretParser parsers, SecretValidator validator, EventService events, ILogger<ScopeSecretValidator> logger)
         {
             _scopes = scopes;
             _parser = parsers;

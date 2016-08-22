@@ -14,11 +14,11 @@ namespace IdentityServer4.Validation
     {
         private readonly ILogger _logger;
         private readonly IClientStore _clients;
-        private readonly IEventService _events;
+        private readonly EventService _events;
         private readonly SecretValidator _validator;
         private readonly SecretParser _parser;
 
-        public ClientSecretValidator(IClientStore clients, SecretParser parser, SecretValidator validator, IEventService events, ILogger<ClientSecretValidator> logger)
+        public ClientSecretValidator(IClientStore clients, SecretParser parser, SecretValidator validator, EventService events, ILogger<ClientSecretValidator> logger)
         {
             _clients = clients;
             _parser = parser;

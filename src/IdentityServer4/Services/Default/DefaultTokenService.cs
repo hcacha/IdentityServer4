@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 using IdentityModel;
+using IdentityServer4.Events;
 using IdentityServer4.Extensions;
 using IdentityServer4.Hosting;
 using IdentityServer4.Models;
@@ -49,7 +50,7 @@ namespace IdentityServer4.Services.Default
         /// <summary>
         /// The events service
         /// </summary>
-        protected readonly IEventService _events;
+        protected readonly EventService _events;
         
         // todo
         //protected readonly OwinEnvironmentService _owinEnvironmentService;
@@ -62,7 +63,7 @@ namespace IdentityServer4.Services.Default
         /// <param name="tokenHandles">The token handles.</param>
         /// <param name="creationService">The signing service.</param>
         /// <param name="events">The events service.</param>
-        public DefaultTokenService(IdentityServerContext context, IClaimsProvider claimsProvider, ITokenHandleStore tokenHandles, ITokenCreationService creationService, IEventService events, ILogger<DefaultTokenService> logger)
+        public DefaultTokenService(IdentityServerContext context, IClaimsProvider claimsProvider, ITokenHandleStore tokenHandles, ITokenCreationService creationService, EventService events, ILogger<DefaultTokenService> logger)
         {
             _logger = logger;
             _context = context;

@@ -11,18 +11,19 @@ using Microsoft.Extensions.Logging;
 using IdentityServer4.Extensions;
 using IdentityServer4.Hosting;
 using IdentityServer4.Endpoints.Results;
+using IdentityServer4.Events;
 
 namespace IdentityServer4.Endpoints
 {
     public class IntrospectionEndpoint : IEndpoint
     {
-        private readonly IEventService _events;
+        private readonly EventService _events;
         private readonly IIntrospectionResponseGenerator _generator;
         private readonly ILogger<IntrospectionEndpoint> _logger;
         private readonly IIntrospectionRequestValidator _requestValidator;
         private readonly ScopeSecretValidator _scopeSecretValidator;
 
-        public IntrospectionEndpoint(ScopeSecretValidator scopeSecretValidator, IIntrospectionRequestValidator requestValidator, IIntrospectionResponseGenerator generator, IEventService events, ILogger<IntrospectionEndpoint> logger)
+        public IntrospectionEndpoint(ScopeSecretValidator scopeSecretValidator, IIntrospectionRequestValidator requestValidator, IIntrospectionResponseGenerator generator, EventService events, ILogger<IntrospectionEndpoint> logger)
         {
             _scopeSecretValidator = scopeSecretValidator;
             _requestValidator = requestValidator;

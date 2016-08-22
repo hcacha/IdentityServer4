@@ -11,11 +11,11 @@ using FluentAssertions;
 
 namespace UnitTests.Common
 {
-    public class TestEventService : IEventService
+    public class TestEventService : EventService
     {
         Dictionary<Type, object> _events = new Dictionary<Type, object>();
 
-        public Task RaiseAsync<T>(Event<T> evt)
+        public override Task RaiseAsync<T>(Event<T> evt)
         {
             _events.Add(typeof(Event<T>), evt);
             return Task.FromResult(0);

@@ -3,6 +3,7 @@
 
 using IdentityModel;
 using IdentityServer4.Configuration;
+using IdentityServer4.Events;
 using IdentityServer4.Extensions;
 using IdentityServer4.Logging;
 using IdentityServer4.Models;
@@ -25,13 +26,13 @@ namespace IdentityServer4.Validation
         private readonly ICustomRequestValidator _customRequestValidator;
         private readonly IRefreshTokenStore _refreshTokens;
         private readonly ScopeValidator _scopeValidator;
-        private readonly IEventService _events;
+        private readonly EventService _events;
         private readonly IResourceOwnerPasswordValidator _resourceOwnerValidator;
         private readonly IProfileService _profile;
 
         private ValidatedTokenRequest _validatedRequest;
 
-        public TokenRequestValidator(IdentityServerOptions options, IAuthorizationCodeStore authorizationCodes, IRefreshTokenStore refreshTokens, IResourceOwnerPasswordValidator resourceOwnerValidator, IProfileService profile, ExtensionGrantValidator extensionGrantValidator, ICustomRequestValidator customRequestValidator, ScopeValidator scopeValidator, IEventService events, ILogger<TokenRequestValidator> logger)
+        public TokenRequestValidator(IdentityServerOptions options, IAuthorizationCodeStore authorizationCodes, IRefreshTokenStore refreshTokens, IResourceOwnerPasswordValidator resourceOwnerValidator, IProfileService profile, ExtensionGrantValidator extensionGrantValidator, ICustomRequestValidator customRequestValidator, ScopeValidator scopeValidator, EventService events, ILogger<TokenRequestValidator> logger)
         {
             _logger = logger;
             _options = options;
