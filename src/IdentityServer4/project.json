@@ -26,6 +26,11 @@
         "System.Diagnostics.Process": "4.1.0"
       }
     },
-    "net452": { }
+    "net452": {}
+  },
+  "scripts": {
+    "postcompile": [
+      "dotnet pack --no-build --configuration %compile:Configuration%"
+    ]
   }
 }
